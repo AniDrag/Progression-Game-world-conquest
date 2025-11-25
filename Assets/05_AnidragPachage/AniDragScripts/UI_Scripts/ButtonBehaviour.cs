@@ -13,18 +13,16 @@ public class ButtonBehaviour : MonoBehaviour
         DissableParent,
         DissableGrandParent,
         DissableTargetObject,
-        CloseChildrenInTarget,
 
     }
     [Header(
-        "--------------------------------------------" + 
-        "\n Button Settings \n" + 
+        "--------------------------------------------" +
+        "\n Button Settings \n" +
         "--------------------------------------------"
     )]
     [SerializeField] public ButtonActivationResult resolveType = ButtonActivationResult.OnlySound;
     [Tooltip("Target is a gameobject that will be dissabled on click")]
     [SerializeField] private GameObject target;
-    [SerializeField] private GameObject enableTarget;
     [SerializeField] private AudioClip audioClip;
     [Tooltip("Tis is an audio mixer Group that should be asigned to buttons")]
     [SerializeField] private AudioMixerGroup audioAutput;
@@ -49,7 +47,7 @@ public class ButtonBehaviour : MonoBehaviour
         }
         else
         {
-            //Debug.LogWarning($"No Auido Output / Audio Mixer Group assigned on {transform.name}!!!");
+            Debug.LogWarning($"No Auido Output / Audio Mixer Group assigned on {transform.name}!!!");
         }
         if (_button == null)
         {
@@ -61,9 +59,9 @@ public class ButtonBehaviour : MonoBehaviour
             }
             else
             {
-               // Debug.LogWarning($"Button component found");
+                Debug.LogWarning($"Button component found");
             }
-            
+
         }
     }
     private void OnEnable()
@@ -87,7 +85,6 @@ public class ButtonBehaviour : MonoBehaviour
             case ButtonActivationResult.DissableParent: BTN_DissableParent(); break;
             case ButtonActivationResult.DissableGrandParent: BTN_DissableGrandParent(); break;
             case ButtonActivationResult.DissableTargetObject: BTN_DissableTargetObject(); break;
-            case ButtonActivationResult.CloseChildrenInTarget: BTN_CloseChildrenInTarget(); break;
         }
 
     }
@@ -95,7 +92,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// Trigger Audio while keeping everything safe.
     /// Will Dissable target if it is not null
     /// </summary>
-    private void BTN_Pressed()
+    public void BTN_Pressed()
     {
         if (GetComponent<AudioSource>() == null) { Debug.LogWarning("!! No audio provided !!"); return; }
         else if (_audioSource == null)
@@ -108,7 +105,7 @@ public class ButtonBehaviour : MonoBehaviour
         }
         else if (_audioSource.clip == null) _audioSource.clip = audioClip;
 
-        //if (target != null) { target.SetActive(false); }
+        if (target != null) { target.SetActive(false); }
 
         _audioSource.Stop();
         _audioSource.Play();
@@ -117,7 +114,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// <summary>
     /// Hides / dissables the button and plays sound.
     /// </summary>
-    private void BTN_DissableThis()
+    public void BTN_DissableThis()
     {
         target = transform.gameObject;
         BTN_Pressed();
@@ -126,7 +123,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// <summary>
     /// Hides / dissables a selected game object that is in the target sloot, and plays sound.
     /// </summary>
-    private void BTN_DissableTargetObject()
+    public void BTN_DissableTargetObject()
     {
         if (target == null)
         {
@@ -139,7 +136,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// <summary>
     /// Hides / Dissables parent of this transform, and plays sound.
     /// </summary>
-    private void BTN_DissableParent()
+    public void BTN_DissableParent()
     {
         target = transform.parent.gameObject;
         BTN_Pressed();
@@ -148,7 +145,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// <summary>
     /// Hides / Dissables parent of of this transforms parent, this dissabeling a grandparent. Plays sound.
     /// </summary>
-    private void BTN_DissableGrandParent()
+    public void BTN_DissableGrandParent()
     {
         target = transform.parent.parent.gameObject;
         BTN_Pressed();
@@ -160,7 +157,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// Plays sound.
     /// </summary>
     /// <param name="childIndex"> what child to dissable Or if Target slot is filled dissables target</param>
-    private void BTN_DissableChild()
+    public void BTN_DissableChild()
     {
         if (transform.childCount - 1 < childIndex)
         {
@@ -179,7 +176,7 @@ public class ButtonBehaviour : MonoBehaviour
     /// </summary>
     /// <param name="childIndex"></param>
     /// <param name="grandchildIndex"></param>
-    private void BTN_DissableGrandChild()
+    public void BTN_DissableGrandChild()
     {
         if (transform.childCount - 1 < childIndex)
         {
@@ -195,15 +192,6 @@ public class ButtonBehaviour : MonoBehaviour
             target = transform.GetChild(childIndex).GetChild(grandchildIndex).gameObject;
         BTN_Pressed();
         target.SetActive(false);
-    }
-    private void BTN_CloseChildrenInTarget()
-    {
-        BTN_Pressed();
-        for (int i = 0; i < target.transform.childCount; i++)
-        {
-            target.transform.GetChild(i).gameObject.SetActive(false);
-        }
-        enableTarget.SetActive(true);
     }
     public class SelectChild
     {

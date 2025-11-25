@@ -6,7 +6,6 @@ public class ButtonBehaviourEditor : Editor
 {
     SerializedProperty resolveTypeProp;
     SerializedProperty targetProp;
-    SerializedProperty enableTargetProp;
     SerializedProperty audioClipProp;
     SerializedProperty audioOutputProp;
     SerializedProperty childIndexProp;
@@ -16,7 +15,6 @@ public class ButtonBehaviourEditor : Editor
     {
         resolveTypeProp = serializedObject.FindProperty("resolveType");
         targetProp = serializedObject.FindProperty("target");
-        enableTargetProp = serializedObject.FindProperty("enableTarget");
         audioClipProp = serializedObject.FindProperty("audioClip");
         audioOutputProp = serializedObject.FindProperty("audioAutput");
         childIndexProp = serializedObject.FindProperty("childIndex");
@@ -27,21 +25,15 @@ public class ButtonBehaviourEditor : Editor
     {
         serializedObject.Update();
 
-        // Show indexes based on enum
-        var action = (ButtonBehaviour.ButtonActivationResult)resolveTypeProp.enumValueIndex;
-        bool showTarget = action != ButtonBehaviour.ButtonActivationResult.OnlySound || action != ButtonBehaviour.ButtonActivationResult.DissableThisGameObject;
-        bool showEnableTarget = action == ButtonBehaviour.ButtonActivationResult.CloseChildrenInTarget;
-        bool showIndexes = action == ButtonBehaviour.ButtonActivationResult.DissableChildObject ||
-                           action == ButtonBehaviour.ButtonActivationResult.DissableGrandChildObject;
-
         EditorGUILayout.PropertyField(resolveTypeProp);
-        if(showTarget)
-            EditorGUILayout.PropertyField(targetProp);
-        if(showEnableTarget)
-            EditorGUILayout.PropertyField(enableTargetProp);
+        EditorGUILayout.PropertyField(targetProp);
         EditorGUILayout.PropertyField(audioClipProp);
         EditorGUILayout.PropertyField(audioOutputProp);
 
+        // Show indexes based on enum
+        var action = (ButtonBehaviour.ButtonActivationResult)resolveTypeProp.enumValueIndex;
+        bool showIndexes = action == ButtonBehaviour.ButtonActivationResult.DissableChildObject ||
+                           action == ButtonBehaviour.ButtonActivationResult.DissableGrandChildObject;
 
         if (showIndexes)
         {

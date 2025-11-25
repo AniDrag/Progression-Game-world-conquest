@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +8,9 @@ using UnityEngine.UI;
 /// </summary>
 public class BuildBuilding : MonoBehaviour
 {
+    [Header("================CONTROLL=================")]
+    public bool USE_RANDOMIZE = true;
+
     [Header("Plot Data")]
     [SerializeField] public PlotPercent Mine;
     [SerializeField] public PlotPercent Plantation;
@@ -27,13 +30,20 @@ public class BuildBuilding : MonoBehaviour
     private void Awake()
     {
         if (!buildButton) buildButton = GetComponent<Button>();
-        //buildingDropdown.gameObject.SetActive(false);
+        if (!buildingDropdown) buildingDropdown = GetComponent<TMP_Dropdown>();
+        buildingDropdown.gameObject.SetActive(false);
     }
-
+    private void Start()
+    {
+        RandomizeMyStuff();
+    }
     private void OnEnable()
     {
         buildButton?.onClick.AddListener(OnBuildButtonClicked);
         buildingDropdown?.onValueChanged.AddListener(BuildingSelected);
+
+        buildingDropdown.value = 0;
+        buildingDropdown.RefreshShownValue();
     }
 
     private void OnDisable()
@@ -60,7 +70,7 @@ public class BuildBuilding : MonoBehaviour
         BuildingPreset selectedData = buildingTypes.Find(b => b.buildingName == name);
         if (selectedData == null)
         {
-            Debug.LogWarning($"No BuildingData found for {name}");
+            //Debug.LogWarning($"No BuildingData found for {name}");
             return;
         }
 
@@ -105,4 +115,44 @@ public class BuildBuilding : MonoBehaviour
         ThreeQuarters,
         Full
     }
+
+    void RandomizeMyStuff()
+    {
+        Mine = GetWeightedRandomPlotPercent();
+        Plantation = GetWeightedRandomPlotPercent();
+        Gold = GetWeightedRandomPlotPercent();
+
+        //Debug.Log($"Randomized -> Mine:{Mine}, Plantation:{Plantation}, Gold:{Gold}");
+    }
+
+    PlotPercent GetWeightedRandomPlotPercent()
+    {
+        // Weights (you can tweak these)
+        // Lower number = rarer
+        Dictionary<PlotPercent, int> weights = new Dictionary<PlotPercent, int>()
+    {
+        { PlotPercent.Zero, 20 },
+        { PlotPercent.Quarter, 50 },
+        { PlotPercent.Half, 30 },
+        { PlotPercent.ThreeQuarters, 20 },
+        { PlotPercent.Full, 10 } // ★ VERY RARE
+    };
+
+        int totalWeight = 0;
+        foreach (var w in weights.Values)
+            totalWeight += w;
+
+        int randomValue = Random.Range(0, totalWeight);
+        int current = 0;
+
+        foreach (var pair in weights)
+        {
+            current += pair.Value;
+            if (randomValue < current)
+                return pair.Key;
+        }
+
+        return PlotPercent.Half; // fallback (should never hit)
+    }
+
 }
