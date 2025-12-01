@@ -6,4 +6,7 @@ public class BuildingPreset : ScriptableObject
     public BuildingType type;
     public Sprite icon;
     public int maxEfficiencyOutput = 10;
+
+    public ResourcesCore buildPrice;
+    public ResourcesCore refundAmount;
 }

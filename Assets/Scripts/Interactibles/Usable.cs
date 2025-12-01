@@ -6,7 +6,7 @@ public class Usable : MonoBehaviour
 {
     [Header("Action settings")]
     public string actionName;
-    public ResourceData cost;
+    public ResourcesCore cost;
     public int cooldown;
     public Button activationBTN;
     [TextArea]
@@ -17,7 +17,7 @@ public class Usable : MonoBehaviour
     [SerializeField] private TMP_Text price;
     [SerializeField] private TMP_Text description;
 
-    protected bool CanBuy => GameManager.instance.resourceStorage.IsBiggerThan(cost);
+    protected bool CanBuy => GameManager.instance.playerResources.PlayerHasEnoughResources(cost);
 
     private int _currentCooldown;
 
@@ -44,13 +44,13 @@ public class Usable : MonoBehaviour
     {
         if(_currentCooldown>0) _currentCooldown--;
 
-        activationBTN.interactable = e.resource.IsBiggerThan(cost) && _currentCooldown <= 0;
+        activationBTN.interactable = e.resource.PlayerHasEnoughResources(cost) && _currentCooldown <= 0;
     }
 
     void ActivateAction()
     {
         Debug.Log($"Action {actionName} used.");
-        GameManager.instance.resourceStorage.Remove(cost);
+        GameManager.instance.playerResources.Subtract(cost);
         activationBTN.interactable = false;
     }
 

@@ -36,7 +36,7 @@ public class TypeUpgrade : Usable
         EventBus<OnTypeUpgraded>.Publish(new OnTypeUpgraded(type, multi, cost));
 
     }
-    private ResourceData UpgradeMultiplier(BuildingType type, int level)
+    private ResourcesCore UpgradeMultiplier(BuildingType type, int level)
     {
         // Target ~2k → 100k over 10 levels
         float baseCost = 2000f;
@@ -50,21 +50,21 @@ public class TypeUpgrade : Usable
             default: Debug.LogError("Wrong Type input or type missing"); return null;
 
             case BuildingType.Mine:
-                return new ResourceData(
+                return new ResourcesCore(
                     Mathf.RoundToInt(cost),
                     0,
                     Mathf.RoundToInt(cost * 0.8f)
                 );
 
             case BuildingType.Plantation:
-                return new ResourceData(
+                return new ResourcesCore(
                     0,
                     Mathf.RoundToInt(cost),
                     Mathf.RoundToInt(cost * 0.8f)
                 );
 
             case BuildingType.Resort:
-                return new ResourceData(
+                return new ResourcesCore(
                     Mathf.RoundToInt(cost * 0.7f),
                     Mathf.RoundToInt(cost * 0.7f),
                     Mathf.RoundToInt(cost)

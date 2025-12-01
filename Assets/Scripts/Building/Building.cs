@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Building : MonoBehaviour
 {
     [Header("Setup")]
-    [SerializeField] private Button buildBuildingBtn;
+    [SerializeField] private Button plotButton;
     [SerializeField] private Button buildingButton;
 
     [Header("Building Data")]
@@ -18,6 +18,8 @@ public class Building : MonoBehaviour
     [Header("Runtime")]
     [SerializeField] private int output;
     [SerializeField] private Sprite buildingImage;
+    private ResourcesCore _price;
+    private ResourcesCore _refund;
     [SerializeField] private ResourceData price = new ResourceData();
     [SerializeField] private ResourceData refund = new ResourceData();
 
@@ -26,8 +28,8 @@ public class Building : MonoBehaviour
     public BuildingType Type => type;
     public int BuildingLevel => level;
     public int BuildingOutput => output;
-    public ResourceData Price => price;
-    public ResourceData Refund => refund;
+    public ResourcesCore Price => _price;
+    public ResourcesCore Refund => _refund;
     #endregion
 
     
@@ -70,10 +72,10 @@ public class Building : MonoBehaviour
         /// Capped at level 10.
         /// Is effected by the TypeBonus.
         /// 
-        if(level > 9 && !GameManager.instance.resourceStorage.IsBiggerThan(Price)) { Debug.Log("Building level is max"); return; }
+        if(level > 9 || !GameManager.instance.playerResources.PlayerHasEnoughResources(_price)) { Debug.Log("Building level is max"); return; }
 
         level++;
-        GameManager.instance.resourceStorage.Remove(price); // if i change this how can i make an event that will cal Ui update?
+        GameManager.instance.playerResources.Subtract(_price); // if i change this how can i make an event that will cal Ui update?
         UpdateResources();
 
         // Fire UI event
@@ -81,11 +83,11 @@ public class Building : MonoBehaviour
     }
     public void OnDestory()
     {
-        this.gameObject.SetActive(false);
-        buildBuildingBtn.gameObject.SetActive(true);
-
+        GameManager.instance.playerResources.Add(_refund); // if i change this how can i make an event that will cal Ui update?
+        plotButton.gameObject.SetActive(true);
         // Fire UI event
         EventBus<OnBuildingDestroyed>.Publish(new OnBuildingDestroyed(this));
+        this.gameObject.SetActive(false);
     }
     private void OnTypeUpgraded(OnTypeUpgraded e)
     {

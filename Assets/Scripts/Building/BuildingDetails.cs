@@ -78,8 +78,8 @@ public class BuildingDetails : MonoBehaviour
     {
         currentBuilding = building;
 
-        var resources = GameManager.instance.resourceStorage.resources;
-        upgradeButton.interactable = resources.IsBiggerThan(building.Price) && building.BuildingLevel < 10;
+        var resources = GameManager.instance.playerResources;
+        upgradeButton.interactable = resources.PlayerHasEnoughResources(building.Price) && building.BuildingLevel < 10;
 
         buildingName.text = building.Type.ToString();
         buildingLevel.text = $"Level: {building.BuildingLevel}";

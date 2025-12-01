@@ -7,19 +7,25 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("References")]
-    public ResourceStorage resourceStorage;
+    [Header("Resources")]
+    [SerializeField] int startingMetal = 100;
+    [SerializeField] int startingOrganic = 100;
+    [SerializeField] int startingGold = 100;
+    public ResourcesCore playerResources { get; private set; }
 
     [Header("UI referneces")]
     [SerializeField] private Button EndTurnBtn;
 
     [Header("Buildings build Data")]
-    [SerializeField] private List<Building> buildings = new();
+    [SerializeField] private List<Building> buildings = new();// buildings are added by event, only when cosntructed, removed when destroyed.
 
     [Header("Global Multipliers")]
     public float MineMultiplier = 1f;
     public float PlantationMultiplier = 1f;
     public float GoldMultiplier = 1f;
+
+
+    //public ResourceStorage resourceStorage;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -29,7 +35,9 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
 
-        resourceStorage.InitializeStorage(10, 10, 10);
+        playerResources = new ResourcesCore(startingOrganic, startingMetal, startingGold);// set starting resources
+
+        //resourceStorage.InitializeStorage(10, 10, 10);
         EventBus<OnBuildingConstructed>.OnEvent += OnBuildingConstructed;
         EventBus<OnBuildingDestroyed>.OnEvent += OnBuildingDestroyed;
         EventBus<OnTypeUpgraded>.OnEvent -= OnTypeUpgraded;
@@ -61,39 +69,48 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }    
-    private void AddBuilding(Building building)
+    private bool AddBuilding(Building building)
     {
-        if (!buildings.Contains(building))
+        if (!buildings.Contains(building)){
             buildings.Add(building);
+            return true;
+        }
+        return false;
     }
     private void RemoveBuilding(Building building)
     {
         if (buildings.Contains(building))
+        {
             buildings.Remove(building);
+            //playerResources.Add(building.Refund);
+        }
     }
     private void EndTurn()
     {
+        int mineOutput = 0;
+        int plantationOutput = 0;
+        int resortOutput = 0;
         foreach (var b in buildings)
         {
             switch (b.Type)
             {
                 case BuildingType.Mine:
-                    resourceStorage.resources.AddSingle(b.Type, b.BuildingOutput);
+                    mineOutput +=b.BuildingOutput;
                     break;
                 case BuildingType.Plantation:
-                    resourceStorage.resources.AddSingle(b.Type, b.BuildingOutput);
+                    plantationOutput += b.BuildingOutput;
                     break;
                 case BuildingType.Resort:
-                    resourceStorage.resources.AddSingle(b.Type, b.BuildingOutput);
+                    resortOutput += b.BuildingOutput;
                     break;
             }
         }
-        EventBus<OnTurnEnd>.Publish(new OnTurnEnd(resourceStorage.resources));
+        EventBus<OnTurnEnd>.Publish(new OnTurnEnd(new ResourcesCore(plantationOutput, mineOutput, resortOutput)));
     }
     private void OnBuildingConstructed(OnBuildingConstructed e)
     {
-        AddBuilding(e.building);
-        EventBus<OnBuildingSelected>.Publish(new OnBuildingSelected(e.building));
+        if(AddBuilding(e.building))// only trigger if this building doesnt exist yet. no duplicates on tiles.
+            EventBus<OnBuildingSelected>.Publish(new OnBuildingSelected(e.building));
     }
     private void OnBuildingDestroyed(OnBuildingDestroyed e)
     {

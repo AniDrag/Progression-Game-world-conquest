@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
-    [SerializeField] ResourceStorage resources;
+    [SerializeField] ResourcesCore resources;
     [SerializeField] private TMP_Text MetalResource;
     [SerializeField] private TMP_Text OrganicsResource;
     [SerializeField] private TMP_Text GoldResource;
@@ -17,14 +17,14 @@ public class EconomyManager : MonoBehaviour
     }
     private void OnBuildingUpgraded(OnBuildingUpgraded e)
     {
+        resources.Subtract(e.building.Price);
         UpdateUI();
-        resources.Remove(e.building.Price);
     }
 
     private void OnBuildingDestroyed(OnBuildingDestroyed e)
     {
-        UpdateUI();
         resources.Add(e.building.Refund);
+        UpdateUI();
     }
     private void OnTurnEnd(OnTurnEnd e)
     {
@@ -32,8 +32,8 @@ public class EconomyManager : MonoBehaviour
     }
     public void UpdateUI()
     {
-        MetalResource.text = $"Metal: {resources.resources.Metal}" ;
-        OrganicsResource.text = $"Organics: {resources.resources.Organic}";
-        GoldResource.text = $"Gold: {resources.resources.Gold}";
+        MetalResource.text = $"Metal: {resources.Metal}" ;
+        OrganicsResource.text = $"Organics: {resources.Organics}";
+        GoldResource.text = $"Gold: {resources.Gold}";
     }
 }

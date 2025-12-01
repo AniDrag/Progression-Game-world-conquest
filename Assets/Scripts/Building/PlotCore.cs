@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// To do Get cell Efficiency as an input and asign it to said building
 /// </summary>
-public class BuildBuilding : MonoBehaviour
+public class PlotCore : MonoBehaviour
 {
     [Header("================CONTROLL=================")]
     public bool USE_RANDOMIZE = true;
@@ -18,18 +18,18 @@ public class BuildBuilding : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private TMP_Dropdown buildingDropdown;
-    [SerializeField] private Button buildButton;
+    [SerializeField] private Button plotButton;
 
     [Header("Building Data")]
     [SerializeField] private List<BuildingPreset> buildingTypes;
 
     [Header("Building Prefab")]
-    [SerializeField] private GameObject buildingBTN; // The prefab that has the Building script
+    [SerializeField] private GameObject buildingButton    ; // The prefab that has the Building script
 
     public void OnSelected() => EventBus<OnBuildPlotSelected>.Publish(new OnBuildPlotSelected(this));
     private void Awake()
     {
-        if (!buildButton) buildButton = GetComponent<Button>();
+        if (!plotButton) plotButton = GetComponent<Button>();
         if (!buildingDropdown) buildingDropdown = GetComponent<TMP_Dropdown>();
         buildingDropdown.gameObject.SetActive(false);
     }
@@ -39,7 +39,7 @@ public class BuildBuilding : MonoBehaviour
     }
     private void OnEnable()
     {
-        buildButton?.onClick.AddListener(OnBuildButtonClicked);
+        plotButton?.onClick.AddListener(PlotSelected);
         buildingDropdown?.onValueChanged.AddListener(BuildingSelected);
 
         buildingDropdown.value = 0;
@@ -48,11 +48,11 @@ public class BuildBuilding : MonoBehaviour
 
     private void OnDisable()
     {
-        buildButton?.onClick.RemoveListener(OnBuildButtonClicked);
+        plotButton?.onClick.RemoveListener(PlotSelected);
         buildingDropdown?.onValueChanged.RemoveListener(BuildingSelected);
     }
 
-    private void OnBuildButtonClicked()
+    private void PlotSelected()
     {
         OnSelected();
         buildingDropdown.gameObject.SetActive(true);
@@ -75,7 +75,7 @@ public class BuildBuilding : MonoBehaviour
         }
 
         // Apply UI appearance
-        buildingBTN.GetComponent<Image>().sprite = selectedData.icon;
+        buildingButton.GetComponent<Image>().sprite = selectedData.icon;
 
         // Calculate plot effectiveness
         int effectiveness = selectedData.type switch
@@ -87,11 +87,11 @@ public class BuildBuilding : MonoBehaviour
         };
 
         // Setup the building
-        Building buildingData = buildingBTN.GetComponent<Building>();
+        Building buildingData = buildingButton.GetComponent<Building>();
         buildingData.Setup(selectedData, effectiveness);
 
         // Enable the building button (the actual plot)
-        buildingBTN.SetActive(true);
+        buildingButton.SetActive(true);
         this.gameObject.SetActive(false);
 
         // Fire event instead of direct GameManager call

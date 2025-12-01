@@ -47,7 +47,7 @@ public class OnBuildPlotSelected : Event
     public int MineEfficiency;
     public int PlantationEfficiency;
     public int GoldEfficiency;
-    public OnBuildPlotSelected(BuildBuilding plotDetails){
+    public OnBuildPlotSelected(PlotCore plotDetails){
         MineEfficiency = plotDetails.PlotPercentConclusion(plotDetails.Mine);
         PlantationEfficiency = plotDetails.PlotPercentConclusion(plotDetails.Plantation);
         GoldEfficiency = plotDetails.PlotPercentConclusion(plotDetails.Gold);
@@ -58,8 +58,8 @@ public class OnTypeUpgraded : Event
 {
     public readonly BuildingType type;
     public readonly float newMultiplier;
-    public readonly ResourceData cost;
-    public OnTypeUpgraded(BuildingType type, float newMultiplier, ResourceData cost)
+    public readonly ResourcesCore cost;
+    public OnTypeUpgraded(BuildingType type, float newMultiplier, ResourcesCore cost)
     {
         this.type = type;
         this.newMultiplier = newMultiplier;
@@ -68,8 +68,8 @@ public class OnTypeUpgraded : Event
 }
 public class OnTurnEnd:Event
 {
-    public readonly ResourceData resource;
-    public OnTurnEnd(ResourceData resource) { this.resource = resource; }
+    public readonly ResourcesCore resource;
+    public OnTurnEnd(ResourcesCore resource) => this.resource.Add(resource); 
 }
 
 
