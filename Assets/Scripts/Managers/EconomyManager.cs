@@ -1,39 +1,59 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Keeps resource UI in sync with the GameManager's core ResourcesCore.
+/// Listens to events and updates displays accordingly.
+/// </summary>
 public class EconomyManager : MonoBehaviour
 {
-    [SerializeField] ResourcesCore resources;
-    [SerializeField] private TMP_Text MetalResource;
-    [SerializeField] private TMP_Text OrganicsResource;
-    [SerializeField] private TMP_Text GoldResource;
+    [SerializeField] private ResourcesCore resources;
+    [SerializeField] private TMP_Text metalResource;
+    [SerializeField] private TMP_Text organicsResource;
+    [SerializeField] private TMP_Text goldResource;
 
     private void Start()
     {
+        // get authoritative resource reference from GameManager
+        resources = GameManager.Instance?.PlayerResources;
         EventBus<OnBuildingUpgraded>.OnEvent += OnBuildingUpgraded;
         EventBus<OnBuildingDestroyed>.OnEvent += OnBuildingDestroyed;
         EventBus<OnTurnEnd>.OnEvent += OnTurnEnd;
+
         UpdateUI();
     }
+
+    private void OnDestroy()
+    {
+        EventBus<OnBuildingUpgraded>.OnEvent -= OnBuildingUpgraded;
+        EventBus<OnBuildingDestroyed>.OnEvent -= OnBuildingDestroyed;
+        EventBus<OnTurnEnd>.OnEvent -= OnTurnEnd;
+    }
+
     private void OnBuildingUpgraded(OnBuildingUpgraded e)
     {
-        resources.Subtract(e.building.Price);
+        if (e?.building == null) return;
+        // When building upgraded, cost was already subtracted by building logic.
         UpdateUI();
     }
 
     private void OnBuildingDestroyed(OnBuildingDestroyed e)
     {
-        resources.Add(e.building.Refund);
+        if (e?.building == null) return;
         UpdateUI();
     }
+
     private void OnTurnEnd(OnTurnEnd e)
     {
+        // resources updated in GameManager; just refresh UI
         UpdateUI();
     }
+
     public void UpdateUI()
     {
-        MetalResource.text = $"Metal: {resources.Metal}" ;
-        OrganicsResource.text = $"Organics: {resources.Organics}";
-        GoldResource.text = $"Gold: {resources.Gold}";
+        if (resources == null) return;
+        if (metalResource != null) metalResource.text = $"Metal: {resources.Metal}";
+        if (organicsResource != null) organicsResource.text = $"Organics: {resources.Organics}";
+        if (goldResource != null) goldResource.text = $"Gold: {resources.Gold}";
     }
 }

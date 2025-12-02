@@ -1,48 +1,60 @@
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 [System.Serializable]
-public class ResourcesCore 
+public class ResourcesCore
 {
-    private int organics;
-    private int metal;
-    private int gold;
+    // internal fields (not serialized by default; use wrappers)
+    [SerializeField] private int organics;
+    [SerializeField] private int metal;
+    [SerializeField] private int gold;
 
     public int Organics => organics;
     public int Metal => metal;
     public int Gold => gold;
 
-    public ResourcesCore(int pOrganics = 0, int pIron = 0, int pGold = 0)
+    public ResourcesCore(int pOrganics = 0, int pMetal = 0, int pGold = 0)
     {
-        organics = pOrganics;
-        metal = pIron;
-        gold = pGold;
+        organics = Mathf.Max(0, pOrganics);
+        metal = Mathf.Max(0, pMetal);
+        gold = Mathf.Max(0, pGold);
     }
+
+    /// <summary>
+    /// Safely add other resources into this one (caps at int.MaxValue).
+    /// </summary>
     public void Add(ResourcesCore other)
     {
-        organics += other.organics;
-        metal += other.metal;
-        gold += other.gold;
-        organics = Mathf.Min(organics,int.MaxValue);
-        metal = Mathf.Min(metal, int.MaxValue);
-        gold = Mathf.Min(gold, int.MaxValue);
+        if (other == null) return;
+        organics = SafeAdd(organics, other.organics);
+        metal = SafeAdd(metal, other.metal);
+        gold = SafeAdd(gold, other.gold);
     }
+
+    /// <summary>
+    /// Subtract other resources; clamped at zero (no negative).
+    /// </summary>
     public void Subtract(ResourcesCore other)
     {
-        organics -= other.organics;
-        metal -= other.metal;
-        gold -= other.gold;
-
-        organics = Mathf.Max(0, organics);
-        metal = Mathf.Max(0, metal);
-        gold = Mathf.Max(0, gold);
+        if (other == null) return;
+        organics = Mathf.Max(0, organics - other.organics);
+        metal = Mathf.Max(0, metal - other.metal);
+        gold = Mathf.Max(0, gold - other.gold);
     }
+
     public bool PlayerHasEnoughResources(ResourcesCore cost)
     {
-        return (organics >= cost.organics &&
-         metal >= cost.metal &&
-         gold >= cost.gold);
+        if (cost == null) return true; // no cost
+        return organics >= cost.organics &&
+               metal >= cost.metal &&
+               gold >= cost.gold;
     }
-    public string DisplayData(string title) => $" {title}\n Metal: {metal:N0},\n Organics: {organics:N0},\n Gold: {gold:N0}.";
 
+    public string DisplayData(string title)
+        => $"{title}\n Metal: {metal:N0},\n Organics: {organics:N0},\n Gold: {gold:N0}.";
+
+    private int SafeAdd(int a, int b)
+    {
+        long result = (long)a + b;
+        return (int)Mathf.Min(result, int.MaxValue);
+    }
 }

@@ -1,48 +1,79 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
+/// <summary>
+/// Centralized core data holder: resources, building registry and global multipliers.
+/// GameManager intentionally keeps responsibilities narrow — it's a data authority.
+/// Other systems listen to events or call GameManager's public methods.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    // Singleton (public to allow everyone to read)
+    public static GameManager Instance { get; private set; }
 
     [Header("Resources")]
-    [SerializeField] int startingMetal = 100;
-    [SerializeField] int startingOrganic = 100;
-    [SerializeField] int startingGold = 100;
-    public ResourcesCore playerResources { get; private set; }
+    [Tooltip("Starting metal for player.")]
+    [SerializeField] private int startingMetal = 100;
+    [Tooltip("Starting organic resources for player.")]
+    [SerializeField] private int startingOrganic = 100;
+    [Tooltip("Starting gold for player.")]
+    [SerializeField] private int startingGold = 100;
 
-    [Header("UI referneces")]
-    [SerializeField] private Button EndTurnBtn;
+    // Public read-only property for other systems to query/update via GameManager methods
+    public ResourcesCore PlayerResources { get; private set; }
+
+    [Header("UI references")]
+    [Tooltip("End turn button (optional).")]
+    [SerializeField] private Button endTurnBtn;
 
     [Header("Buildings build Data")]
-    [SerializeField] private List<Building> buildings = new();// buildings are added by event, only when cosntructed, removed when destroyed.
+    [Tooltip("Runtime list of active buildings (managed by GameManager).")]
+    [SerializeField] private List<Building> buildings = new();
 
     [Header("Global Multipliers")]
-    public float MineMultiplier = 1f;
-    public float PlantationMultiplier = 1f;
-    public float GoldMultiplier = 1f;
+    [Tooltip("Global multiplier for mines")]
+    public float MineMultiplier { get; private set; } = 1f;
+    [Tooltip("Global multiplier for plantations")]
+    public float PlantationMultiplier { get; private set; } = 1f;
+    [Tooltip("Global multiplier for resorts/gold")]
+    public float GoldMultiplier { get; private set; } = 1f;
 
-
-    //public ResourceStorage resourceStorage;
     private void Awake()
     {
-        if (instance != null && instance != this)
+        // Singleton enforcement
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
-        playerResources = new ResourcesCore(startingOrganic, startingMetal, startingGold);// set starting resources
+        PlayerResources = new ResourcesCore(startingOrganic, startingMetal, startingGold);
 
-        //resourceStorage.InitializeStorage(10, 10, 10);
+        // Register only to events that affect GameManager core data: construction & destruction
         EventBus<OnBuildingConstructed>.OnEvent += OnBuildingConstructed;
         EventBus<OnBuildingDestroyed>.OnEvent += OnBuildingDestroyed;
-        EventBus<OnTypeUpgraded>.OnEvent -= OnTypeUpgraded;
-        EndTurnBtn.onClick.AddListener(EndTurn);
+        EventBus<OnTypeUpgraded>.OnEvent += OnTypeUpgraded;
+
+        if (endTurnBtn != null)
+            endTurnBtn.onClick.AddListener(EndTurn);
     }
+
+    private void OnDestroy()
+    {
+        // clean up subscriptions
+        EventBus<OnBuildingConstructed>.OnEvent -= OnBuildingConstructed;
+        EventBus<OnBuildingDestroyed>.OnEvent -= OnBuildingDestroyed;
+        EventBus<OnTypeUpgraded>.OnEvent -= OnTypeUpgraded;
+
+        if (endTurnBtn != null)
+            endTurnBtn.onClick.RemoveListener(EndTurn);
+    }
+
+    /// <summary>
+    /// Return the current multiplier for a building type (read-only helper).
+    /// </summary>
     public float GetMultiplier(BuildingType type)
     {
         return type switch
@@ -54,8 +85,10 @@ public class GameManager : MonoBehaviour
         };
     }
 
+    /// <summary>Apply a type upgrade to the global multipliers.</summary>
     private void OnTypeUpgraded(OnTypeUpgraded e)
     {
+        if (e == null) return;
         switch (e.type)
         {
             case BuildingType.Mine:
@@ -68,34 +101,47 @@ public class GameManager : MonoBehaviour
                 GoldMultiplier = e.newMultiplier;
                 break;
         }
-    }    
-    private bool AddBuilding(Building building)
-    {
-        if (!buildings.Contains(building)){
-            buildings.Add(building);
-            return true;
-        }
-        return false;
     }
-    private void RemoveBuilding(Building building)
+
+    /// <summary>
+    /// Register a building in the manager list. Duplicate-safe.
+    /// </summary>
+    private void OnBuildingConstructed(OnBuildingConstructed e)
     {
-        if (buildings.Contains(building))
+        if (e?.building == null) return;
+        if (!buildings.Contains(e.building))
         {
-            buildings.Remove(building);
-            //playerResources.Add(building.Refund);
+            PlayerResources.Subtract(e.constructionCost);
+            buildings.Add(e.building);
+            // let other subscribers know a building is selected by publishing the event
+            EventBus<OnBuildingSelected>.Publish(new OnBuildingSelected(e.building));
         }
     }
+
+    private void OnBuildingDestroyed(OnBuildingDestroyed e)
+    {
+        if (e?.building == null) return;
+        if (buildings.Contains(e.building))
+            buildings.Remove(e.building);
+    }
+
+    /// <summary>
+    /// End turn aggregator — calculates production and publishes OnTurnEnd
+    /// GameManager only calculates based on core data and publishes; UI/other systems react.
+    /// </summary>
     private void EndTurn()
     {
         int mineOutput = 0;
         int plantationOutput = 0;
         int resortOutput = 0;
+
         foreach (var b in buildings)
         {
+            if (b == null) continue;
             switch (b.Type)
             {
                 case BuildingType.Mine:
-                    mineOutput +=b.BuildingOutput;
+                    mineOutput += b.BuildingOutput;
                     break;
                 case BuildingType.Plantation:
                     plantationOutput += b.BuildingOutput;
@@ -105,17 +151,42 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
-        EventBus<OnTurnEnd>.Publish(new OnTurnEnd(new ResourcesCore(plantationOutput, mineOutput, resortOutput)));
+
+        var produced = new ResourcesCore(plantationOutput, mineOutput, resortOutput);
+        // Update internal resources (GameManager owns core data)
+        PlayerResources.Add(produced);
+
+        // publish so other systems know to update UI or cooldowns
+        EventBus<OnTurnEnd>.Publish(new OnTurnEnd(produced));
     }
-    private void OnBuildingConstructed(OnBuildingConstructed e)
+
+    // Exposed helpers for other systems wanting to change resources via GameManager (central authority)
+
+    /// <summary>
+    /// Try to spend resources; returns true if successful.
+    /// </summary>
+    public bool TrySpendResources(ResourcesCore cost)
     {
-        if(AddBuilding(e.building))// only trigger if this building doesnt exist yet. no duplicates on tiles.
-            EventBus<OnBuildingSelected>.Publish(new OnBuildingSelected(e.building));
+        if (cost == null) return false;
+        if (PlayerResources.PlayerHasEnoughResources(cost))
+        {
+            PlayerResources.Subtract(cost);
+            // publish a change if desired
+            return true;
+        }
+        return false;
     }
-    private void OnBuildingDestroyed(OnBuildingDestroyed e)
+
+    /// <summary>
+    /// Add resources to the player's pool.
+    /// </summary>
+    public void AddResources(ResourcesCore add)
     {
-        RemoveBuilding(e.building);
+        if (add == null) return;
+        PlayerResources.Add(add);
     }
+}
+
 
 
     /// End turn:
@@ -163,4 +234,3 @@ public class GameManager : MonoBehaviour
     ///     
     /// Closes Building info.
     /// Enable BuildPlot info.
-}

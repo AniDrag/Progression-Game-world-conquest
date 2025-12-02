@@ -297,7 +297,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 0,\n Organics: 2,000,\n Gold: 1,600."
+  m_text: "Price\n Metal: 0,\n Organics: 2.000,\n Gold: 1.600."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -413,9 +413,9 @@ RectTransform:
   - {fileID: 856345294}
   m_Father: {fileID: 373710578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 45, y: 89.55676}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 661.1311, y: 440.9365}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &44342377
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 1,400,\n Organics: 1,400,\n Gold: 2,000."
+  m_text: "Price\n Metal: 1.400,\n Organics: 1.400,\n Gold: 2.000."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 8,000,\n Organics: 200,\n Gold: 50,000."
+  m_text: "Price\n Metal: 500,\n Organics: 4.500,\n Gold: 6.000."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1627,7 +1627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 8,000,\n Organics: 200,\n Gold: 50,000."
+  m_text: "Price\n Metal: 0,\n Organics: 0,\n Gold: 0."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1834,7 +1834,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228290693}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1869,12 +1869,12 @@ RectTransform:
   - {fileID: 1862306973}
   - {fileID: 948309077}
   - {fileID: 966738301}
-  m_Father: {fileID: 250258538}
+  m_Father: {fileID: 1870582400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 1265, y: -30}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1302, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &228290695
 MonoBehaviour:
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06999821, g: 0.122641504, b: 0.079634115, a: 1}
+  m_Color: {r: 0.3087149, g: 0.3660378, b: 0.31748194, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1931,7 +1931,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 200, y: 200}
@@ -2058,86 +2058,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250101426}
-  m_CullTransparentMesh: 1
---- !u!1 &250258537
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 250258538}
-  - component: {fileID: 250258540}
-  - component: {fileID: 250258539}
-  m_Layer: 5
-  m_Name: Panel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &250258538
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250258537}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1308739165}
-  - {fileID: 228290694}
-  - {fileID: 373710578}
-  - {fileID: 1540159060}
-  - {fileID: 1864792796}
-  m_Father: {fileID: 1038722230}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &250258539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250258537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.091847636, g: 0.091847636, b: 0.1509434, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &250258540
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250258537}
   m_CullTransparentMesh: 1
 --- !u!1 &266901101
 GameObject:
@@ -2434,8 +2354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
+  useAudio: 0
+  action: 4
   enableDisable: 1
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
@@ -2840,7 +2760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "PlanetPrice: \n"
+  m_text: Buy Planet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3177,8 +3097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
+  useAudio: 0
+  action: 4
   enableDisable: 1
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
@@ -4069,15 +3989,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
-  enableDisable: 1
+  useAudio: 0
+  action: 6
+  enableDisable: 0
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
   pitch: 1
   volume: 1
   randomPitch: 0
-  target: {fileID: 373710577}
+  target: {fileID: 2112642794}
   childIndex: 0
   grandchildIndex: 0
   onClick:
@@ -4324,20 +4244,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373710577}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1138537864}
   - {fileID: 2112642795}
   - {fileID: 44342376}
   - {fileID: 1332103609}
-  m_Father: {fileID: 250258538}
+  m_Father: {fileID: 1038722230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -150, y: 25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &409364669
@@ -4397,9 +4317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Upgrade
-
-'
+  m_text: See Upgrades
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4977,6 +4895,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433800464}
   m_CullTransparentMesh: 1
+--- !u!1 &446867111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446867112}
+  - component: {fileID: 446867114}
+  - component: {fileID: 446867113}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &446867112
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446867111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1863084254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &446867113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446867111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.24318255, g: 0.2603773, b: 0.25246772, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &446867114
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446867111}
+  m_CullTransparentMesh: 1
 --- !u!1 &460872896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5227,12 +5220,8 @@ MonoBehaviour:
   startingMetal: 100
   startingOrganic: 100
   startingGold: 100
-  EndTurnBtn: {fileID: 849919396}
+  endTurnBtn: {fileID: 849919396}
   buildings: []
-  MineMultiplier: 1
-  PlantationMultiplier: 1
-  GoldMultiplier: 1
-  resourceStorage: {fileID: 11400000, guid: 5fb924cb576cecd4dbb571db7b0335bc, type: 2}
 --- !u!1 &480490087
 GameObject:
   m_ObjectHideFlags: 0
@@ -5668,7 +5657,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: End turn
+  m_text: END TURN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5677,8 +5666,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284427857
-  m_fontColor: {r: 0.31764707, g: 0.18039216, b: 0.37254903, a: 1}
+    rgba: 4287269514
+  m_fontColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5701,7 +5690,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5906,7 +5895,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 5,000,\n Organics: 10,000,\n Gold: 100,000."
+  m_text: "Price\n Metal: 8.000,\n Organics: 3.000,\n Gold: 10.800."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6098,6 +6087,22 @@ PrefabInstance:
     - target: {fileID: 681449915512039624, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
       propertyPath: m_Name
       value: GridSlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 955951453542349639, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 955951453542349639, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+      propertyPath: m_Color.b
+      value: 0.735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 955951453542349639, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+      propertyPath: m_Color.g
+      value: 0.109683074
+      objectReference: {fileID: 0}
+    - target: {fileID: 955951453542349639, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+      propertyPath: m_Color.r
+      value: 0.55694455
       objectReference: {fileID: 0}
     - target: {fileID: 3538410373177715070, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
       propertyPath: m_Pivot.x
@@ -6504,9 +6509,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Lol
   cost:
-    Metal: 8000
-    Organic: 200
-    Gold: 50000
+    organics: 4500
+    metal: 500
+    gold: 6000
   cooldown: 3
   activationBTN: {fileID: 795996596}
   actionDescription: Can detect Missiles and destroy incoming missliles for the nex
@@ -7104,7 +7109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 10,\n Organics: 600,\n Gold: 2,000."
+  m_text: "Price\n Metal: 1.600,\n Organics: 600,\n Gold: 7.000."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7237,8 +7242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
+  useAudio: 0
+  action: 4
   enableDisable: 1
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
@@ -7903,10 +7908,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.091847636, g: 0.091847636, b: 0.1509434, a: 1}
-    m_HighlightedColor: {r: 0.47602102, g: 0.15663938, b: 0.6037736, a: 1}
-    m_PressedColor: {r: 0.101960786, g: 0.7372549, b: 0.6117647, a: 1}
-    m_SelectedColor: {r: 0.47602102, g: 0.15663938, b: 0.6037736, a: 1}
+    m_NormalColor: {r: 0.3962264, g: 0.0919544, b: 0.12677252, a: 1}
+    m_HighlightedColor: {r: 0.6754716, g: 0.11597718, b: 0.16020925, a: 1}
+    m_PressedColor: {r: 0.85660374, g: 0.13414732, b: 0.84574014, a: 1}
+    m_SelectedColor: {r: 0.6754716, g: 0.11597718, b: 0.16020925, a: 1}
     m_DisabledColor: {r: 0.12735848, g: 0.16981131, b: 0.13388969, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -7925,19 +7930,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 849919397}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 479030973}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &849919397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8030,8 +8023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
+  useAudio: 0
+  action: 4
   enableDisable: 1
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
@@ -9018,9 +9011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' Upgrade
-
-'
+  m_text: See Defenses
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9112,7 +9103,7 @@ GameObject:
   - component: {fileID: 1038722228}
   - component: {fileID: 1038722227}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas-Actions_and_economy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9193,7 +9184,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 250258538}
+  - {fileID: 373710578}
+  - {fileID: 1540159060}
+  - {fileID: 1864792796}
+  - {fileID: 1256366030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9414,9 +9408,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Something
   cost:
-    Metal: 8000
-    Organic: 200
-    Gold: 50000
+    organics: 0
+    metal: 0
+    gold: 0
   cooldown: 3
   activationBTN: {fileID: 1350800902}
   actionDescription: Can detect Missiles and destroy incoming missliles for the nex
@@ -9771,9 +9765,9 @@ RectTransform:
   - {fileID: 282708268}
   m_Father: {fileID: 373710578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 45, y: 89.56}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 661.1311, y: 440.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1138537865
@@ -10169,7 +10163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 10,\n Organics: 600,\n Gold: 2,000."
+  m_text: "Price\n Metal: 300,\n Organics: 100,\n Gold: 10.000."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10395,15 +10389,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
-  enableDisable: 1
+  useAudio: 0
+  action: 6
+  enableDisable: 0
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
   pitch: 1
   volume: 1
   randomPitch: 0
-  target: {fileID: 373710577}
+  target: {fileID: 1138537863}
   childIndex: 0
   grandchildIndex: 0
   onClick:
@@ -10563,9 +10557,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Resort Production
   cost:
-    Metal: 1400
-    Organic: 1400
-    Gold: 2000
+    organics: 1400
+    metal: 1400
+    gold: 2000
   cooldown: 0
   activationBTN: {fileID: 363414048}
   actionDescription: Increases Production of Mines by 20% per level.
@@ -10783,6 +10777,142 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1256366029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256366030}
+  - component: {fileID: 1256366032}
+  - component: {fileID: 1256366031}
+  m_Layer: 5
+  m_Name: YouWonText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1256366030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256366029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1038722230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1256366031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256366029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "You Won!! \nYou bought the planet"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278255377
+  m_fontColor: {r: 0.064735174, g: 1, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 100
+  m_fontSizeBase: 100
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1256366032
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256366029}
+  m_CullTransparentMesh: 1
 --- !u!1 &1262358605
 GameObject:
   m_ObjectHideFlags: 0
@@ -10898,9 +11028,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Mine Production
   cost:
-    Metal: 2000
-    Organic: 0
-    Gold: 1600
+    organics: 0
+    metal: 2000
+    gold: 1600
   cooldown: 0
   activationBTN: {fileID: 250101428}
   actionDescription: Increases Production of Mines by 20% per level.
@@ -11170,9 +11300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Plantation Production
   cost:
-    Metal: 0
-    Organic: 2000
-    Gold: 1600
+    organics: 2000
+    metal: 0
+    gold: 1600
   cooldown: 0
   activationBTN: {fileID: 349050272}
   actionDescription: Increases Production of Plantations by 20% per level.
@@ -11571,7 +11701,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308739164}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11581,7 +11711,7 @@ RectTransform:
   - {fileID: 2133435905}
   - {fileID: 1322801755}
   - {fileID: 1337202985}
-  m_Father: {fileID: 250258538}
+  m_Father: {fileID: 1863084254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12013,9 +12143,9 @@ RectTransform:
   - {fileID: 779269580}
   m_Father: {fileID: 373710578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 45, y: 219.90112}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 661.1311, y: 180.2478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1332103610
@@ -12703,7 +12833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 5,000,\n Organics: 10,000,\n Gold: 100,000."
+  m_text: "Price\n Metal: 88.000,\n Organics: 100,\n Gold: 5.000."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13352,7 +13482,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540159059}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13362,11 +13492,11 @@ RectTransform:
   - {fileID: 1291130418}
   - {fileID: 460872897}
   - {fileID: 179308975}
-  m_Father: {fileID: 250258538}
+  m_Father: {fileID: 1038722230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -15, y: 183.3244}
+  m_AnchoredPosition: {x: -15, y: 174.3244}
   m_SizeDelta: {x: 600, y: 353.4098}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1540159061
@@ -13852,15 +13982,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2aa8ccb3ea9743bc7bcaad8ca74c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAudio: 1
-  action: 0
-  enableDisable: 1
+  useAudio: 0
+  action: 6
+  enableDisable: 0
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
   pitch: 1
   volume: 1
   randomPitch: 0
-  target: {fileID: 0}
+  target: {fileID: 1332103608}
   childIndex: 0
   grandchildIndex: 0
   onClick:
@@ -14243,7 +14373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 1,000,000,\n Organics: 1,000,000,\n Gold: 1,000,000."
+  m_text: "Price\n Metal: 200.000,\n Organics: 200.000,\n Gold: 500.000."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14603,9 +14733,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Rocket
   cost:
-    Metal: 5000
-    Organic: 10000
-    Gold: 100000
+    organics: 3000
+    metal: 8000
+    gold: 10800
   cooldown: 6
   activationBTN: {fileID: 690421391}
   actionDescription: Generate a shild and prevents damage delt to field
@@ -14707,7 +14837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy
+  m_text: See Price
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16018,6 +16148,109 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3538410373177715070, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
   m_PrefabInstance: {fileID: 1862306972}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1863084250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863084254}
+  - component: {fileID: 1863084253}
+  - component: {fileID: 1863084252}
+  - component: {fileID: 1863084251}
+  m_Layer: 5
+  m_Name: Canvas-Details
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1863084251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863084250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1863084252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863084250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1863084253
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863084250}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &1863084254
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863084250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 446867112}
+  - {fileID: 1308739165}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1864792795
 GameObject:
   m_ObjectHideFlags: 0
@@ -16045,7 +16278,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864792795}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16053,11 +16286,11 @@ RectTransform:
   - {fileID: 1861397723}
   - {fileID: 1987020600}
   - {fileID: 1112762737}
-  m_Father: {fileID: 250258538}
+  m_Father: {fileID: 1038722230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -15, y: 455}
+  m_AnchoredPosition: {x: -15, y: 446}
   m_SizeDelta: {x: 600, y: 163}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1864792797
@@ -16136,10 +16369,115 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c0638e24aaa2a4aa047e191d97c8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resources: {fileID: 11400000, guid: 5fb924cb576cecd4dbb571db7b0335bc, type: 2}
-  MetalResource: {fileID: 1861397724}
-  OrganicsResource: {fileID: 1987020601}
-  GoldResource: {fileID: 1112762738}
+  resources:
+    organics: 0
+    metal: 0
+    gold: 0
+  metalResource: {fileID: 1861397724}
+  organicsResource: {fileID: 1987020601}
+  goldResource: {fileID: 1112762738}
+--- !u!1 &1870582396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1870582400}
+  - component: {fileID: 1870582399}
+  - component: {fileID: 1870582398}
+  - component: {fileID: 1870582397}
+  m_Layer: 5
+  m_Name: Canvas-Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1870582397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870582396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1870582398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870582396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1870582399
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870582396}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &1870582400
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870582396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 228290694}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1924346000
 GameObject:
   m_ObjectHideFlags: 0
@@ -16197,9 +16535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' Upgrade
-
-'
+  m_text: See Attacks
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16561,14 +16897,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useAudio: 0
-  action: 0
+  action: 6
   enableDisable: 0
   audioClip: {fileID: 0}
   audioOutput: {fileID: 0}
   pitch: 1
   volume: 1
   randomPitch: 0
-  target: {fileID: 0}
+  target: {fileID: 44342375}
   childIndex: 0
   grandchildIndex: 0
   onClick:
@@ -16651,9 +16987,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Shild Generaor
   cost:
-    Metal: 5000
-    Organic: 10000
-    Gold: 100000
+    organics: 100
+    metal: 88000
+    gold: 5000
   cooldown: 6
   activationBTN: {fileID: 1787897766}
   actionDescription: Generate a shild and prevents damage delt to field
@@ -17332,16 +17668,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: BuyPlanet
   cost:
-    Metal: 1000000
-    Organic: 1000000
-    Gold: 1000000
+    organics: 200000
+    metal: 200000
+    gold: 500000
   cooldown: 0
   activationBTN: {fileID: 2053014559}
   actionDescription: When bought it ends the game
   title: {fileID: 2012184259}
   price: {fileID: 1700589579}
   description: {fileID: 945848755}
-  endIn: 5
+  endIn: 5.61
+  youWonText: {fileID: 1256366031}
 --- !u!114 &2021715946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17477,9 +17814,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Mine
   cost:
-    Metal: 10
-    Organic: 600
-    Gold: 2000
+    organics: 600
+    metal: 1600
+    gold: 7000
   cooldown: 3
   activationBTN: {fileID: 22094313}
   actionDescription: U can now look under 3 buildings
@@ -17702,7 +18039,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Price\n Metal: 2,000,\n Organics: 0,\n Gold: 1,600."
+  m_text: "Price\n Metal: 2.000,\n Organics: 0,\n Gold: 1.600."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18231,9 +18568,9 @@ RectTransform:
   - {fileID: 323509998}
   m_Father: {fileID: 373710578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 45, y: 89.56}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 661.1311, y: 440.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2112642796
@@ -18531,9 +18868,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Patroll
   cost:
-    Metal: 10
-    Organic: 600
-    Gold: 2000
+    organics: 100
+    metal: 300
+    gold: 10000
   cooldown: 3
   activationBTN: {fileID: 1859708007}
   actionDescription: U can now look under 3 buildings
@@ -18652,11 +18989,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6216559426258222945, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+      propertyPath: buildingButton
+      value: 
+      objectReference: {fileID: 2367902349005980467}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+--- !u!1 &2367902349005980467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2703571834637325027, guid: 030a7ae54f174f54e91956c4abd85df0, type: 3}
+  m_PrefabInstance: {fileID: 2367902349005980466}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -18665,5 +19011,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 479030972}
   - {fileID: 832575519}
+  - {fileID: 1870582400}
   - {fileID: 1038722230}
+  - {fileID: 1863084254}
   - {fileID: 1247438762}

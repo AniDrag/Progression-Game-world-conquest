@@ -2,69 +2,136 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Base class for simple actions/skills that consume resources and have cooldowns.
+/// Handles UI wiring and basic checks. Specific logic should be put in derived classes (e.g. BuyPlanet).
+/// </summary>
 public class Usable : MonoBehaviour
 {
     [Header("Action settings")]
-    public string actionName;
-    public ResourcesCore cost;
-    public int cooldown;
-    public Button activationBTN;
+    [Tooltip("Display name of the action.")]
+    [SerializeField] protected string actionName;
+    [Tooltip("Cost of using the action.")]
+    [SerializeField] protected ResourcesCore cost;
+    [Tooltip("Cooldown in turns.")]
+    [SerializeField] protected int cooldown = 0;
+    [Tooltip("Button that activates this usable.")]
+    [SerializeField] protected Button activationBTN;
     [TextArea]
-    public string actionDescription;
+    [SerializeField] private string actionDescription;
 
-    [Header("References")]
-    [SerializeField] private TMP_Text title;
-    [SerializeField] private TMP_Text price;
-    [SerializeField] private TMP_Text description;
+    [Header("UI References")]
+    [SerializeField] protected TMP_Text title;
+    [SerializeField] protected TMP_Text price;
+    [SerializeField] protected TMP_Text description;
 
-    protected bool CanBuy => GameManager.instance.playerResources.PlayerHasEnoughResources(cost);
+    protected int _currentCooldown;
 
-    private int _currentCooldown;
+    protected bool CanBuy =>
+        GameManager.Instance != null &&
+        GameManager.Instance.PlayerResources != null &&
+        cost != null &&
+        GameManager.Instance.PlayerResources.PlayerHasEnoughResources(cost);
 
-    public virtual void OnValidate()
+    protected virtual void OnValidate()
     {
         UpdateUsableUI();
     }
+
     protected virtual void Start()
     {
+        if (activationBTN == null)
+        {
+            Debug.LogError($"Usable '{name}' has NO activation button assigned.");
+            return;
+        }
+
         activationBTN.interactable = ButtonEnableCondition();
+
+        // subscribe to global events to keep interactable state updated
         EventBus<OnTurnEnd>.OnEvent += ReduceCooldown;
+        EventBus<OnBuildingUpgraded>.OnEvent += OnBuildingUpgraded;
+        EventBus<OnBuildingDestroyed>.OnEvent += OnBuildingDestroyed;
     }
+
     protected virtual void OnEnable()
     {
-        activationBTN.onClick.AddListener(ActivateAction);
-        activationBTN.interactable = ButtonEnableCondition();
+        if (activationBTN != null)
+        {
+            activationBTN.onClick.AddListener(ActivateAction);
+            activationBTN.interactable = ButtonEnableCondition();
+        }
+
         UpdateUsableUI();
+
+        // subscribe (defensive duplicates won't break since we always unsubscribe on disable/destroy)
+        EventBus<OnTurnEnd>.OnEvent += ReduceCooldown;
+        EventBus<OnBuildingUpgraded>.OnEvent += OnBuildingUpgraded;
+        EventBus<OnBuildingDestroyed>.OnEvent += OnBuildingDestroyed;
     }
+
     protected virtual void OnDisable()
     {
-        activationBTN.onClick.RemoveListener(ActivateAction);
-    }
-    void ReduceCooldown(OnTurnEnd e)
-    {
-        if(_currentCooldown>0) _currentCooldown--;
+        if (activationBTN != null)
+        {
+            activationBTN.onClick.RemoveListener(ActivateAction);
+        }
 
-        activationBTN.interactable = e.resource.PlayerHasEnoughResources(cost) && _currentCooldown <= 0;
+        EventBus<OnTurnEnd>.OnEvent -= ReduceCooldown;
+        EventBus<OnBuildingUpgraded>.OnEvent -= OnBuildingUpgraded;
+        EventBus<OnBuildingDestroyed>.OnEvent -= OnBuildingDestroyed;
     }
 
-    void ActivateAction()
+    private void ReduceCooldown(OnTurnEnd e)
     {
-        Debug.Log($"Action {actionName} used.");
-        GameManager.instance.playerResources.Subtract(cost);
-        activationBTN.interactable = false;
+        if (_currentCooldown > 0) _currentCooldown--;
+
+        if (activationBTN != null)
+            activationBTN.interactable = e != null && e.Resource != null && e.Resource.PlayerHasEnoughResources(cost) && _currentCooldown <= 0;
+    }
+
+    private void OnBuildingUpgraded(OnBuildingUpgraded e)
+    {
+        if (activationBTN != null)
+            activationBTN.interactable = ButtonEnableCondition();
+    }
+
+    private void OnBuildingDestroyed(OnBuildingDestroyed e)
+    {
+        if (activationBTN != null)
+            activationBTN.interactable = ButtonEnableCondition();
+    }
+
+    protected void ActivateAction()
+    {
+        if (!CanBuy)
+        {
+            Debug.LogWarning($"Cannot use action '{actionName}', not enough resources.");
+            return;
+        }
+
+        // Spend resources via GameManager's central authority
+        if (!GameManager.Instance.TrySpendResources(cost))
+        {
+            Debug.LogWarning($"Usable '{actionName}': TrySpendResources failed unexpectedly.");
+            return;
+        }
+
+        Debug.Log($"Action '{actionName}' activated.");
+
+        _currentCooldown = cooldown;
+        if (activationBTN != null) activationBTN.interactable = false;
     }
 
     protected void UpdateUsableUI()
     {
-        title.text = "Name: " + actionName;
-        price.text = cost.DisplayData("Price");
-        description.text = "Description:\n" + actionDescription;
+        if (title != null) title.text = $"Name: {actionName}";
+        if (price != null) price.text = cost != null ? cost.DisplayData("Price") : "Price: N/A";
+        if (description != null) description.text = $"Description:\n{actionDescription}";
     }
 
     protected virtual bool ButtonEnableCondition()
     {
         return CanBuy && _currentCooldown <= 0;
     }
-
-    
 }

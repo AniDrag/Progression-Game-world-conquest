@@ -12,16 +12,17 @@ public class Building : MonoBehaviour
     [SerializeField] private BuildingType type;
     [SerializeField] private int level = 1;
     [SerializeField] private int baseOutput = 10;
-    [SerializeField] private float efficiency = 1f; // 0–1, based on paper map
+    [SerializeField] private float efficiency = 1f; // 0–1, based on plot
     [SerializeField] private float typeMultiplier = 1f;
 
     [Header("Runtime")]
     [SerializeField] private int output;
     [SerializeField] private Sprite buildingImage;
+
+    // internal resource caches (private fields)
     private ResourcesCore _price;
     private ResourcesCore _refund;
-    [SerializeField] private ResourceData price = new ResourceData();
-    [SerializeField] private ResourceData refund = new ResourceData();
+    private ResourcesCore _spent;      // Total resources spent on building & upgrades
 
     #region UI Refrences / Getters
     public string BuildingName => type.ToString();
@@ -32,7 +33,6 @@ public class Building : MonoBehaviour
     public ResourcesCore Refund => _refund;
     #endregion
 
-    
     private void Awake()
     {
         if (buildingButton == null)
@@ -40,79 +40,119 @@ public class Building : MonoBehaviour
 
         RecalculateOutput();
     }
+
     private void OnEnable()
     {
-        buildingButton.onClick.AddListener(OnSelect);
+        if (buildingButton != null)
+            buildingButton.onClick.AddListener(OnSelect);
+
         EventBus<OnTypeUpgraded>.OnEvent += OnTypeUpgraded;
     }
 
     private void OnDisable()
     {
-        buildingButton.onClick.RemoveListener(OnSelect);
+        if (buildingButton != null)
+            buildingButton.onClick.RemoveListener(OnSelect);
+
         EventBus<OnTypeUpgraded>.OnEvent -= OnTypeUpgraded;
     }
 
+    /// <summary>
+    /// Initialize this building using a preset and plot efficiency.
+    /// Note: Setup expects GameManager.Instance to be present to read multipliers.
+    /// </summary>
     public void Setup(BuildingPreset preset, float efficiencyPercent)
     {
+        if (preset == null)
+        {
+            Debug.LogError("Building.Setup called with null preset.");
+            return;
+        }
+
         type = preset.type;
         level = 1;
         efficiency = Mathf.Clamp01(efficiencyPercent / 100f);
         baseOutput = Mathf.RoundToInt(preset.maxEfficiencyOutput * efficiency);
 
-        // Assign global multipliers
-        typeMultiplier = GameManager.instance.GetMultiplier(preset.type);
+        // assign global multiplier from GameManager if available
+        typeMultiplier = GameManager.Instance != null ? GameManager.Instance.GetMultiplier(preset.type) : 1f;
+        _price = new ResourcesCore(50, 50, 50);
         UpdateResources();
     }
+
     public void OnSelect() => EventBus<OnBuildingSelected>.Publish(new OnBuildingSelected(this));
+
     public void OnUpgrade()
     {
-        /// Upgrade
-        /// 
-        /// Upgrades building, dubbeling its stats.
-        /// Capped at level 10.
-        /// Is effected by the TypeBonus.
-        /// 
-        if(level > 9 || !GameManager.instance.playerResources.PlayerHasEnoughResources(_price)) { Debug.Log("Building level is max"); return; }
+        if (level > 9)
+        {
+            Debug.Log("Building level is max");
+            return;
+        }
+
+        // check resources before upgrading
+        if (!GameManager.Instance.TrySpendResources(_price))
+        {
+            Debug.Log("Not enough resources to upgrade building.");
+            return;
+        }
 
         level++;
-        GameManager.instance.playerResources.Subtract(_price); // if i change this how can i make an event that will cal Ui update?
         UpdateResources();
-
-        // Fire UI event
         EventBus<OnBuildingUpgraded>.Publish(new OnBuildingUpgraded(this));
     }
+
     public void OnDestory()
     {
-        GameManager.instance.playerResources.Add(_refund); // if i change this how can i make an event that will cal Ui update?
-        plotButton.gameObject.SetActive(true);
-        // Fire UI event
+        // give refund via GameManager
+        if (GameManager.Instance != null)
+            GameManager.Instance.AddResources(_refund);
+
+        if (plotButton != null) plotButton.gameObject.SetActive(true);
+
         EventBus<OnBuildingDestroyed>.Publish(new OnBuildingDestroyed(this));
         this.gameObject.SetActive(false);
     }
+
     private void OnTypeUpgraded(OnTypeUpgraded e)
     {
+        if (e == null) return;
         if (e.type == this.type)
         {
-            // update local multiplier and recalc
             typeMultiplier = e.newMultiplier;
-            UpdateResources(); // this recalcs output & price & refund
-                               // notify UI if needed
+            UpdateResources();
             EventBus<OnBuildingUpgraded>.Publish(new OnBuildingUpgraded(this));
         }
     }
 
     #region Math Functions
+
     private void RecalculateOutput() => output = Mathf.RoundToInt(baseOutput * Mathf.Pow(2, level - 1) * typeMultiplier);
+
+    /// <summary>
+    /// Recalculates price & refund based on output.
+    /// Keeps internal _price/_refund as ResourcesCore objects used by other systems.
+    /// </summary>
     private void UpdateResources()
     {
         RecalculateOutput();
 
-        // Base price derived from efficiency
-        price.Set(Mathf.RoundToInt(output * 1.8f), Mathf.RoundToInt(output * 1.7f), Mathf.RoundToInt(output * 1.9f));
-        refund.Set(Mathf.RoundToInt(output * 0.25f), Mathf.RoundToInt(output * 0.25f), Mathf.RoundToInt(output * 0.25f));
+        int priceA = Mathf.Max(1, Mathf.RoundToInt(output * 1.8f));
+        int priceB = Mathf.Max(1, Mathf.RoundToInt(output * 1.7f));
+        int priceC = Mathf.Max(1, Mathf.RoundToInt(output * 1.9f));
+
+        int refundA = Mathf.Max(1, Mathf.RoundToInt(output * 0.25f));
+        int refundB = Mathf.Max(1, Mathf.RoundToInt(output * 0.25f));
+        int refundC = Mathf.Max(1, Mathf.RoundToInt(output * 0.25f));
+
+        // update ResourcesCore caches
+        _spent.Add(_price);
+        _price = new ResourcesCore(priceA, priceB, priceC);
+        _refund = new ResourcesCore(priceA, priceB, priceC);
     }
 
     #endregion
+}
     /// Upgrade
     /// 
     /// Upgrades building, dubbeling its stats.
@@ -132,70 +172,10 @@ public class Building : MonoBehaviour
     /// Remove buildig from buildings manager.
     /// Disable this button for Building and we enable BuildPlot button.
     /// We also cleare data from this so no resedue is there.
-}
 
 public enum BuildingType
 {
     Mine,
     Plantation,
     Resort
-}
-[System.Serializable]
-public class ResourceData
-{
-    public int Metal;
-    public int Organic;
-    public int Gold;
-    public ResourceData(int metal = 10, int organic = 10, int gold = 10)
-    {
-        Set(metal, organic, gold);
-    }
-
-    public void Set(int metal, int organic, int gold)
-    {
-        Metal = metal;
-        Organic = organic;
-        Gold = gold;
-    }
-    public void Add(ResourceData add) => ModifyResourceGroup(add, 1);
-    public void Remove(ResourceData cost) => ModifyResourceGroup(cost, -1);
-    public bool IsBiggerThan(ResourceData price)
-    {
-        return Metal >= price.Metal &&
-               Organic >= price.Organic &&
-               Gold >= price.Gold;
-    }
-    public void AddSingle(BuildingType type, int amount) => ModifyResource(type, amount);
-    public void RemoveSingle(BuildingType type, int amount) => ModifyResource(type, -amount);
-    public string DisplayData(string title) => $" {title}\n Metal: {Metal:N0},\n Organics: {Organic:N0},\n Gold: {Gold:N0}.";
-
-    #region Math Functions
-    void ModifyResource(BuildingType type, int amount)
-    {
-        switch (type)
-        {
-            case BuildingType.Mine: Metal += amount; break;
-            case BuildingType.Plantation: Organic += amount; break;
-            case BuildingType.Resort: Gold += amount; break;
-        }
-    }
-    private void ModifyResourceGroup(ResourceData data, int multiplier)
-    {
-        Metal += data.Metal * multiplier;
-        Organic += data.Organic * multiplier;
-        Gold += data.Gold * multiplier;
-    }
-
-    #endregion
-
-    /// AddSingle(type, amount)
-    ///     switch(type) -> type += amoutn.
-    ///     
-    /// RemoveSingle(type, amoutn)
-    ///     switch(type) -> type -= amoutn.
-    ///     
-    /// IsBiggerThan(ResourceData data)
-    ///     data <= resources.
-    ///     
-    /// Display() => metal amount \n organics amount \n, Gold amount.
 }

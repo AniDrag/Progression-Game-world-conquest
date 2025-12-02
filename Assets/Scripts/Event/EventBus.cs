@@ -1,21 +1,21 @@
 using System;
 
-/// This is a simple implementation of the event bus pattern
+/// <summary>
+/// Simple generic static EventBus. Subscribers should register/unregister on OnEnable/OnDisable.
 /// </summary>
-/// <typeparam name="T"></typeparam>
-public class EventBus<T> where T : Event
+public static class EventBus<T> where T : Event
 {
     public static event Action<T> OnEvent;
 
     public static void Publish(T pEvent)
     {
+        // defensive: don't call if null
         OnEvent?.Invoke(pEvent);
     }
 }
 
 /// <summary>
-/// Base class for events, for this simple demonstration it is empty, more fields
-/// could be added in real projects, e.g. eventData
+/// Base event type. Keep extension lightweight.
 /// </summary>
 public abstract class Event { }
 
@@ -40,14 +40,21 @@ public class OnBuildingDestroyed : Event
 public class OnBuildingConstructed : Event
 {
     public readonly Building building;
-    public OnBuildingConstructed(Building building) => this.building = building;
+    public readonly ResourcesCore constructionCost = new ResourcesCore(50,50,50);
+    public OnBuildingConstructed(Building building)
+    {
+         this.building = building;
+    }
 }
+
 public class OnBuildPlotSelected : Event
 {
-    public int MineEfficiency;
-    public int PlantationEfficiency;
-    public int GoldEfficiency;
-    public OnBuildPlotSelected(PlotCore plotDetails){
+    public readonly int MineEfficiency;
+    public readonly int PlantationEfficiency;
+    public readonly int GoldEfficiency;
+
+    public OnBuildPlotSelected(PlotCore plotDetails)
+    {
         MineEfficiency = plotDetails.PlotPercentConclusion(plotDetails.Mine);
         PlantationEfficiency = plotDetails.PlotPercentConclusion(plotDetails.Plantation);
         GoldEfficiency = plotDetails.PlotPercentConclusion(plotDetails.Gold);
@@ -59,6 +66,7 @@ public class OnTypeUpgraded : Event
     public readonly BuildingType type;
     public readonly float newMultiplier;
     public readonly ResourcesCore cost;
+
     public OnTypeUpgraded(BuildingType type, float newMultiplier, ResourcesCore cost)
     {
         this.type = type;
@@ -66,10 +74,14 @@ public class OnTypeUpgraded : Event
         this.cost = cost;
     }
 }
-public class OnTurnEnd:Event
+
+public class OnTurnEnd : Event
 {
-    public readonly ResourcesCore resource;
-    public OnTurnEnd(ResourcesCore resource) => this.resource.Add(resource); 
+    // carry produced resources for the turn
+    public readonly ResourcesCore Resource;
+    public OnTurnEnd(ResourcesCore resource)
+    {
+        // defensive copy to avoid external mutation surprises
+        Resource = resource != null ? new ResourcesCore(resource.Organics, resource.Metal, resource.Gold) : new ResourcesCore();
+    }
 }
-
-

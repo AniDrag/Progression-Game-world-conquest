@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca0aefa9b551314c866b07bdde78705, type: 3}
   m_Name: Plantation
   m_EditorClassIdentifier: 
-  buildingName: Plantation
-  type: 1
-  icon: {fileID: 21300000, guid: 9a69ebd173015af4fb879c55087869e3, type: 3}
+  <BuildingName>k__BackingField: Plantation
+  <type>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 21300000, guid: 9a69ebd173015af4fb879c55087869e3, type: 3}
+  <maxEfficiencyOutput>k__BackingField: 10
