@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,8 @@ public class GameManager : MonoBehaviour
     public float PlantationMultiplier { get; private set; } = 1f;
     [Tooltip("Global multiplier for resorts/gold")]
     public float GoldMultiplier { get; private set; } = 1f;
-
+    public int TurnCounter { get; private set; } = 1;
+    public Action UpdateResources;
     private void Awake()
     {
         // Singleton enforcement
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour
                 GoldMultiplier = e.newMultiplier;
                 break;
         }
+        UpdateResources?.Invoke();
     }
 
     /// <summary>
@@ -111,18 +114,22 @@ public class GameManager : MonoBehaviour
         if (e?.building == null) return;
         if (!buildings.Contains(e.building))
         {
-            PlayerResources.Subtract(e.constructionCost);
             buildings.Add(e.building);
             // let other subscribers know a building is selected by publishing the event
             EventBus<OnBuildingSelected>.Publish(new OnBuildingSelected(e.building));
         }
+        UpdateResources?.Invoke();
     }
 
     private void OnBuildingDestroyed(OnBuildingDestroyed e)
     {
         if (e?.building == null) return;
         if (buildings.Contains(e.building))
+        {
+            PlayerResources.Add(e.building.Refund);   
             buildings.Remove(e.building);
+            UpdateResources?.Invoke();
+        }
     }
 
     /// <summary>
@@ -158,6 +165,8 @@ public class GameManager : MonoBehaviour
 
         // publish so other systems know to update UI or cooldowns
         EventBus<OnTurnEnd>.Publish(new OnTurnEnd(produced));
+        TurnCounter++;
+        UpdateResources?.Invoke();
     }
 
     // Exposed helpers for other systems wanting to change resources via GameManager (central authority)
@@ -172,6 +181,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerResources.Subtract(cost);
             // publish a change if desired
+            UpdateResources?.Invoke();
             return true;
         }
         return false;
@@ -184,6 +194,7 @@ public class GameManager : MonoBehaviour
     {
         if (add == null) return;
         PlayerResources.Add(add);
+        UpdateResources?.Invoke();
     }
 }
 

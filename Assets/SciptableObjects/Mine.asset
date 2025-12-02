@@ -16,3 +16,11 @@ MonoBehaviour:
   <type>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 21300000, guid: 9790d1c0572de024299b00e768dc146f, type: 3}
   <maxEfficiencyOutput>k__BackingField: 10
+  <buildPrice>k__BackingField:
+    organics: 25
+    metal: 25
+    gold: 25
+  <refundAmount>k__BackingField:
+    organics: 25
+    metal: 25
+    gold: 25

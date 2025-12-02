@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,7 +76,7 @@ public class PlotCore : MonoBehaviour
 
     private void BuildBuildingByName(string name)
     {
-        if (buildingTypes == null || buildingButton == null) return;
+        if (buildingTypes == null || buildingButton == null) return;        
 
         BuildingPreset selectedData = buildingTypes.Find(b => b != null && b.BuildingName == name);
         if (selectedData == null)
@@ -85,6 +84,8 @@ public class PlotCore : MonoBehaviour
             Debug.LogWarning($"No BuildingData found for {name}");
             return;
         }
+        // Decreases resources and checks if we can use them if not returns if yes spends and procdeeds.
+        if (!GameManager.Instance.TrySpendResources(selectedData.buildPrice)) return;
 
         var image = buildingButton.GetComponent<Image>();
         if (image != null) image.sprite = selectedData.Icon;

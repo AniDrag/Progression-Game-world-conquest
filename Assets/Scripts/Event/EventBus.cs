@@ -40,7 +40,7 @@ public class OnBuildingDestroyed : Event
 public class OnBuildingConstructed : Event
 {
     public readonly Building building;
-    public readonly ResourcesCore constructionCost = new ResourcesCore(50,50,50);
+    public readonly ResourcesCore constructionCost;
     public OnBuildingConstructed(Building building)
     {
          this.building = building;

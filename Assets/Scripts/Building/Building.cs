@@ -76,7 +76,9 @@ public class Building : MonoBehaviour
 
         // assign global multiplier from GameManager if available
         typeMultiplier = GameManager.Instance != null ? GameManager.Instance.GetMultiplier(preset.type) : 1f;
-        _price = new ResourcesCore(50, 50, 50);
+        _price = preset.buildPrice;
+        _spent = new ResourcesCore();
+        _spent.Add(_price);
         UpdateResources();
     }
 
@@ -146,6 +148,7 @@ public class Building : MonoBehaviour
         int refundC = Mathf.Max(1, Mathf.RoundToInt(output * 0.25f));
 
         // update ResourcesCore caches
+
         _spent.Add(_price);
         _price = new ResourcesCore(priceA, priceB, priceC);
         _refund = new ResourcesCore(priceA, priceB, priceC);
